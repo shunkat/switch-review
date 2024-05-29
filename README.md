@@ -1,66 +1,139 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# プロダクト概要
+このレポジトリはKICの授業課題のために作ったレポジトリです。
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+作成するシステムの条件は以下です。
+```
+• At least the following elements are included
+1. Use the PHP and the MySQL Database
+2. At least two or more tables in database
+3. Have the functions to insert, update, delete the data
+4. Have the function to search the data.
+```
 
-## About Laravel
+# バックエンド側
+## DB
+5つのテーブルがあります
+1. switches
+2. reviews
+3. users
+4. switch_types
+5. companies
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### switches
+- `switch_id: String` - スイッチのID
+- `switch_name: String` - スイッチの名前
+- `switch_type: Int` - スイッチタイプのID（`switch_types.switch_type_id`を参照）
+- `company_id: String` - 会社のID（`companies.company_id`を参照）
+- `activation_pressure: Int` - アクチュエーション圧力
+- `bottom_out_force: Int` - ボトムアウトフォース
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### reviews
+- `review_id: String` - レビューのID
+- `switch_id: String` - スイッチのID（`switches.switch_id`を参照）
+- `user_id: String` - ユーザーのID（`users.user_id`を参照）
+- `title: String` - レビューのタイトル
+- `review_comment: String` - レビューのコメント
+- `rate_star: Int` - レート（星の数）
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### users
+- `user_id: String` - ユーザーのID
+- `user_name: String` - ユーザー名
+- `email: String` - ユーザーのメールアドレス
+- `password: String` - ユーザーのパスワード
 
-## Learning Laravel
+### switch_types
+- `switch_type_id: Int` - スイッチタイプのID
+- `switch_type_name: String` - スイッチタイプの名前
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### companies
+- `company_id: String` - 会社のID
+- `company_name: String` - 会社の名前
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+### phpMyAdminの使い方
+sshトンネルを使う
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+> ssh -N -L 8888:127.0.0.1:80 -i /Users/user/.ssh/xxxxx.pem bitnami@xxxx.xxx.xxx
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+# フロント側
+## ページ構成
+4ページ構成です。
+1. スイッチ一覧ページ
+2. スイッチ詳細ページ（含むレビュー一覧）
+3. レビュー投稿ページ
+4. ログインページ
 
-## Contributing
+### スイッチ一覧ページ
+画面要素
+1. スイッチ名検索窓
+2. 絞り込み検索窓（スイッチタイプ、動作圧）
+3. スイッチ一覧
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**スイッチ名検索窓**
+- スイッチ名をテキスト検索できる
 
-## Code of Conduct
+**絞り込み検索窓**
+- スイッチタイプとアクチュエーション圧力によって表示されているアイテムを絞り込みできる
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**スイッチの一覧**
+- スイッチの名称、スイッチのタイプ、アクチュエーション圧力、ボトムアウトフォースを表示する
+- 各アイテムをクリックするとスイッチ詳細ページに遷移する
 
-## Security Vulnerabilities
+### スイッチ詳細ページ
+画面要素
+1. スイッチ名
+2. スイッチタイプ
+3. 会社名
+4. アクチュエーション圧力
+5. ボトムアウトフォース
+6. レビュー一覧
+7. レビュー投稿ボタン
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**スイッチ名**
+- スイッチの名称を表示する
 
-## License
+**スイッチタイプ**
+- スイッチのタイプを表示する
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**会社名**
+- スイッチの会社名を表示する
+
+**アクチュエーション圧力**
+- スイッチのアクチュエーション圧力を表示する
+
+**ボトムアウトフォース**
+- スイッチのボトムアウトフォースを表示する
+
+**レビュー一覧**
+- スイッチに対するレビューを表示する
+- それぞれの要素は、レビューのタイトル、レビューのコメント、レート（星の数）を表示する
+
+**レビュー投稿ボタン**
+- そのスイッチのレビュー投稿ページに遷移する
+
+### レビュー投稿ページ
+ログインしていなかったらログインページに遷移する
+
+画面要素
+1. レビュータイトル
+2. レビューコメント
+3. レート（星の数）
+4. 投稿ボタン
+
+**レビュータイトル**
+- レビューのタイトルを入力する
+
+**レビューコメント**
+- レビューのコメントを入力する
+
+**レート（星の数）**
+- レビューのレートを選択する
+
+**投稿ボタン**
+- レビューを投稿する
+
+### ログインページ
+- メールアドレスとパスワードによる認証を行う
+```
