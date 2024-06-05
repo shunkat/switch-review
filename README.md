@@ -19,35 +19,31 @@
 4. switch_types
 5. companies
 
-### switches
-- `switch_id: String` - スイッチのID
-- `switch_name: String` - スイッチの名前
-- `switch_type: Int` - スイッチタイプのID（`switch_types.switch_type_id`を参照）
-- `company_id: String` - 会社のID（`companies.company_id`を参照）
-- `activation_pressure: Int` - アクチュエーション圧力
-- `bottom_out_force: Int` - ボトムアウトフォース
 
-### reviews
-- `review_id: String` - レビューのID
-- `switch_id: String` - スイッチのID（`switches.switch_id`を参照）
-- `user_id: String` - ユーザーのID（`users.user_id`を参照）
-- `title: String` - レビューのタイトル
-- `review_comment: String` - レビューのコメント
-- `rate_star: Int` - レート（星の数）
-
-### users
-- `user_id: String` - ユーザーのID
-- `user_name: String` - ユーザー名
-- `email: String` - ユーザーのメールアドレス
-- `password: String` - ユーザーのパスワード
-
-### switch_types
-- `switch_type_id: Int` - スイッチタイプのID
-- `switch_type_name: String` - スイッチタイプの名前
-
-### companies
-- `company_id: String` - 会社のID
-- `company_name: String` - 会社の名前
+| テーブル名 | カラム名 | データ型 | 説明 |
+|------------|-----------|----------|------|
+| switches | switch_id | String | スイッチのID |
+|          | switch_name | String | スイッチの名前 |
+|          | switch_type | Int | スイッチタイプのID（`switch_types.switch_type_id`を参照） |
+|          | company_id | String | 会社のID（`companies.company_id`を参照） |
+|          | activation_pressure | Int | アクチュエーション圧力 |
+|          | bottom_out_force | Int | ボトムアウトフォース |
+| reviews | review_id | String | レビューのID |
+|         | switch_id | String | スイッチのID（`switches.switch_id`を参照） |
+|         | user_id | String | ユーザーのID（`users.user_id`を参照） |
+|         | title | String | レビューのタイトル |
+|         | review_comment | String | レビューのコメント |
+|         | rate_star | Int | レート（星の数） |
+|         | created_at | Date | レビューの作成日 |
+|         | updated_at | Date | レビューの更新日 |
+| users | user_id | String | ユーザーのID |
+|       | user_name | String | ユーザー名 |
+|       | email | String | ユーザーのメールアドレス |
+|       | password | String | ユーザーのパスワード |
+| switch_types | switch_type_id | Int | スイッチタイプのID |
+|              | switch_type_name | String | スイッチタイプの名前 |
+| companies | company_id | String | 会社のID |
+|           | company_name | String | 会社の名前 |
 
 
 
