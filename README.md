@@ -45,7 +45,51 @@
 | companies | company_id | String | 会社のID |
 |           | company_name | String | 会社の名前 |
 
+```mermaid
+erDiagram
+    SWITCHES {
+        String switch_id PK "Switch ID"
+        String switch_name "Switch Name"
+        Int switch_type FK "Switch Type ID (references switch_types.switch_type_id)"
+        String company_id FK "Company ID (references companies.company_id)"
+        Int activation_pressure "Activation Pressure"
+        Int bottom_out_force "Bottom Out Force"
+    }
+    
+    REVIEWS {
+        String review_id PK "Review ID"
+        String switch_id FK "Switch ID (references switches.switch_id)"
+        String user_id FK "User ID (references users.user_id)"
+        String title "Review Title"
+        String review_comment "Review Comment"
+        Int rate_star "Rating (stars)"
+        Date created_at "Created At"
+        Date updated_at "Updated At"
+    }
+    
+    USERS {
+        String user_id PK "User ID"
+        String user_name "User Name"
+        String email "Email"
+        String password "Password"
+    }
+    
+    SWITCH_TYPES {
+        Int switch_type_id PK "Switch Type ID"
+        String switch_type_name "Switch Type Name"
+    }
+    
+    COMPANIES {
+        String company_id PK "Company ID"
+        String company_name "Company Name"
+    }
+    
+    SWITCHES ||--o{ REVIEWS : "has many"
+    USERS ||--o{ REVIEWS : "writes"
+    SWITCH_TYPES ||--o{ SWITCHES : "has many"
+    COMPANIES ||--o{ SWITCHES : "produces"
 
+```
 
 ### phpMyAdminの使い方
 sshトンネルを使う
