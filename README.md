@@ -10,6 +10,12 @@
 4. Have the function to search the data.
 ```
 
+# 環境
+Linux debian ver:12.5
+PHP v8.2.18
+Node: v22.2.0
+
+
 # バックエンド側
 ## DB
 5つのテーブルがあります
