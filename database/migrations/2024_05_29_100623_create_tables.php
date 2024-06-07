@@ -39,7 +39,7 @@ return new class extends Migration
             $table->string('switch_id');
             $table->foreign('switch_id')->references('switch_id')->on('switches');
             $table->string('user_id');
-            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('title');
             $table->text('review_comment');
             $table->unsignedInteger('rate_star');
@@ -51,8 +51,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
         });
-
-
     }
 
     public function down(): void
