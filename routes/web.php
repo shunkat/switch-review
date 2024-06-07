@@ -5,14 +5,22 @@ use App\Http\Controllers\SwitchController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::get('/', [SwitchController::class, 'index']);
 
-Route::get('/switches', [SwitchController::class, 'index']);
-Route::get('/switches/{id}', [SwitchController::class, 'detail']);
+Route::get('/switches', [SwitchController::class, 'index'])->name('switches.index');
+Route::get('/switches/{id}', [SwitchController::class, 'detail'])->name('switches.detail');
 
-Route::get('/reviews/create/{id}', [ReviewController::class, 'create']);
-Route::post('/reviews/store/{id}', [ReviewController::class, 'store']);
+// reviews/createへのアクセスは認証が必要
+Route::middleware('auth')->group(function () {
+    Route::get('/reviews/create/{id}', [ReviewController::class, 'create']);
+    Route::post('/reviews/store/{id}', [ReviewController::class, 'store']);
+
+      
+    Route::get('/reviews/edit/{id}', [ReviewController::class, 'edit'])->name('reviews.edit');
+    Route::put('/reviews/{id}', [ReviewController::class, 'update'])->name('reviews.update');
+    Route::delete('/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+
+});
 
 Route::get('/register', [RegisterController::class, 'create']);
 Route::post('/register', [RegisrerController::class, 'store']);
